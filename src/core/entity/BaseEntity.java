@@ -1,6 +1,6 @@
-package core;
+package core.entity;
 
-import java.util.ArrayList;
+import core.world.World;
 
 public abstract class BaseEntity {
     public int x;
@@ -13,7 +13,7 @@ public abstract class BaseEntity {
         return this;
     }
 
-    public abstract void setupLogic(ArrayList<BaseEntity>[][] WORLD);
+    public abstract void setupLogic(World WORLD);
     public abstract String asString();
     public abstract boolean isReserved();
 
