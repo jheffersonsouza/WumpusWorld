@@ -12,7 +12,7 @@ public class Gold extends BaseEntity {
     @Override
     public void setupLogic(World world) {
         // r é Brilho kkkkkkkkkkk ta fogo usar um caractere só.
-        new EmissionTrait(world, this, "r");
+        new EmissionTrait(world, POS, "r");
     }
     @Override
     public String asString() {

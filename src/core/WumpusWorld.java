@@ -33,13 +33,11 @@ public class WumpusWorld {
         hunter.setPos(0, 0);
         WORLD.place(hunter);
         this.hunter = hunter;
-        gridUpdated();
+        WORLD.gridUpdated();
     }
 
 
-    private void gridUpdated() {
-        GraphicMock.print(WORLD);
-    }
+
 
 
 }

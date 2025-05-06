@@ -1,7 +1,8 @@
 package core.entity.move;
 
+import core.entity.BaseEntity;
 import core.world.World;
 
 public interface MovementStrategy {
-    void determineNextAction(World world);
+    boolean determineNextAction(BaseEntity e, World world);
 }

@@ -13,7 +13,7 @@ public class Hole extends BaseEntity {
     @Override
     public void setupLogic(World world) {
         // b é Brisa
-        new EmissionTrait(world, this, "b");
+        new EmissionTrait(world, POS, "b");
     }
 
     @Override

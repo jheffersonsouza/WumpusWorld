@@ -1,8 +1,10 @@
 package core.world;
 
 import core.entity.BaseEntity;
+import core.entity.move.Position;
 import core.entity.trait.EmissionEntity;
 import impl.Void;
+import utils.GraphicMock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,27 +40,6 @@ public class World {
 
     }
 
-    public void place(BaseEntity entity) {
-        // y = i (Linha)  e x = j (Coluna)
-        List<BaseEntity> tile = WORLD[entity.y][entity.x];
-        if (tile == null) {
-            WORLD[entity.y][entity.x] = new ArrayList<>();
-            // Essa recursão é cancelada por ela mesmo já que isso só roda uma vez.
-            place(entity);
-            return;
-        }
-        if (!entity.asString().isEmpty()) {
-            System.out.println(entity.asString() + " placed at position " + entity.x + ", " + entity.y);
-        }
-        if (tile.size() == 1 && tile.getFirst() instanceof Void) {
-            tile.clear();
-            tile.add(entity);
-            return;
-        }
-        // aqui significa que tem ou 0 ou mais de 1 coisa no quadrado já.
-        // nao vai verificar se pode ta no tile aqui nao.
-        tile.add(entity);
-    }
 
     private int[] getRandomPosition(boolean reserved) {
         int row = new Random().nextInt(0, WORLD_SIZE);
@@ -79,8 +60,26 @@ public class World {
         return new int[]{row, column};
     }
 
-    public int getSize() {
-        return WORLD_SIZE;
+    public void place(BaseEntity entity) {
+        // y = i (Linha)  e x = j (Coluna)
+        List<BaseEntity> tile = WORLD[entity.POS.y][entity.POS.x];
+        if (tile == null) {
+            WORLD[entity.POS.y][entity.POS.x] = new ArrayList<>();
+            // Essa recursão é cancelada por ela mesmo já que isso só roda uma vez.
+            place(entity);
+            return;
+        }
+        if (!entity.asString().isEmpty()) {
+            System.out.println(entity.asString() + " placed at position " + entity.POS.x + ", " + entity.POS.y);
+        }
+        if (tile.size() == 1 && tile.getFirst() instanceof Void) {
+            tile.clear();
+            tile.add(entity);
+            return;
+        }
+        // aqui significa que tem ou 0 ou mais de 1 coisa no quadrado já.
+        // nao vai verificar se pode ta no tile aqui nao.
+        tile.add(entity);
     }
 
     public void remove(BaseEntity e) {
@@ -89,5 +88,23 @@ public class World {
                 tile.remove(e);
             }
         }
+    }
+
+    public void move(BaseEntity entity, Position newPos) {
+        newPos = Position.getSafePos(newPos, WORLD_SIZE);
+        if (newPos != null) {
+            remove(entity);
+            place(entity.setPos(newPos));
+            gridUpdated();
+        }
+        // TODO: Later, listen to the else, to know when IA is moving wrong.
+    }
+
+    public int getSize() {
+        return WORLD_SIZE;
+    }
+
+    public void gridUpdated() {
+        GraphicMock.print(this);
     }
 }

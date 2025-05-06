@@ -4,15 +4,14 @@ import impl.User;
 
 public class Main {
     public static void main(String[] args) {
-        WumpusWorld wumpusWorld = new WumpusWorld(5);
+        WumpusWorld wumpusWorld = new WumpusWorld(3);
         User antonio = new User();
         antonio.setPoints(10); // Ele é vip já começa com pontos kkkkk
-        // TODO: Fazer um sistema de input manual e o que ele vai automatico (sem IA).
-        // TODO: Integra IA de verdade para pensar a movimentação
-        antonio.setBehavior(new TextInputMovementStrategy());
 
         wumpusWorld.setHunter(antonio);
+        // TODO: Fazer um sistema de input manual e o que ele vai automatico (sem IA).
+        // TODO: Integra IA de verdade para pensar a movimentação
 
-
+        antonio.setBehavior(wumpusWorld.WORLD, new TextInputMovementStrategy());
     }
 }

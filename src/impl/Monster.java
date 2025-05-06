@@ -16,8 +16,7 @@ public class Monster extends LivingEntity {
     @Override
     public void setupLogic(World world) {
         // c é Catinga
-        new EmissionTrait(world, this, "c");
-
+        new EmissionTrait(world, POS, "c");
     }
 
     @Override

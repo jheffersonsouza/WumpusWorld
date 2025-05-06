@@ -21,11 +21,12 @@ public class Position {
     }
 
     public Position up() {
-        return new Position(x, y + 1);
+        return new Position(x, y - 1);
     }
 
     public Position down() {
-        return new Position(x, y - 1);
+        // Ir para baixo é passar para a proxima linha, ou seja, somar 1.
+        return new Position(x, y + 1);
     }
 
     public Position left() {
@@ -46,6 +47,20 @@ public class Position {
         if (pos.x < 0 || pos.y < 0){
             return false;
         }
-        return pos.x <= WORLD_SIZE && pos.y <= WORLD_SIZE;
+        return pos.x <= WORLD_SIZE - 1 && pos.y <= WORLD_SIZE - 1;
     }
+
+    /**
+     * Verficia se a posição dada é valida, se ela está dentro do mundo/plano.
+     * @param pos Posição inicial.
+     * @param WORLD_SIZE O tamanho do mundo.
+     * @return A posição se for válida, do contrário null.
+     */
+    public static Position getSafePos(Position pos, int WORLD_SIZE) {
+        if (Position.isValid(pos, WORLD_SIZE)) {
+            return pos;
+        }
+        return null;
+    }
+
 }

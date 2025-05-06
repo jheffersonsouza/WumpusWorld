@@ -4,7 +4,7 @@ import core.entity.move.Position;
 import core.world.World;
 
 public abstract class BaseEntity {
-    private Position POS;
+    public Position POS;
 
     public BaseEntity setPos(int x, int y) {
         POS = new Position(x, y);
