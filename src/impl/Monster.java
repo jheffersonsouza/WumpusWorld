@@ -1,10 +1,13 @@
-package build;
+package impl;
 
-import core.entity.BaseEntity;
-import core.entity.ExpositionTrait;
+import core.entity.trait.EmissionTrait;
+import core.entity.LivingEntity;
 import core.world.World;
 
-public class Monster extends BaseEntity {
+public class Monster extends LivingEntity {
+    public Monster() {
+        super();
+    }
     @Override
     public boolean isReserved() {
         return false;
@@ -13,7 +16,8 @@ public class Monster extends BaseEntity {
     @Override
     public void setupLogic(World world) {
         // c é Catinga
-        new ExpositionTrait(world, this, "c");
+        new EmissionTrait(world, this, "c");
+
     }
 
     @Override

@@ -1,9 +1,9 @@
 package core.world;
 
 import core.entity.BaseEntity;
-import build.Gold;
-import build.Hole;
-import build.Monster;
+import impl.Gold;
+import impl.Hole;
+import impl.Monster;
 
 import java.util.ArrayList;
 import java.util.List;

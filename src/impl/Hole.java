@@ -1,7 +1,7 @@
-package build;
+package impl;
 
 import core.entity.BaseEntity;
-import core.entity.ExpositionTrait;
+import core.entity.trait.EmissionTrait;
 import core.world.World;
 
 public class Hole extends BaseEntity {
@@ -13,7 +13,7 @@ public class Hole extends BaseEntity {
     @Override
     public void setupLogic(World world) {
         // b é Brisa
-        new ExpositionTrait(world, this, "b");
+        new EmissionTrait(world, this, "b");
     }
 
     @Override

@@ -1,5 +1,6 @@
+import impl.movement.TextInputMovementStrategy;
 import core.WumpusWorld;
-import build.User;
+import impl.User;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class Main {
         antonio.setPoints(10); // Ele é vip já começa com pontos kkkkk
         // TODO: Fazer um sistema de input manual e o que ele vai automatico (sem IA).
         // TODO: Integra IA de verdade para pensar a movimentação
-        //antonio.setGoal(new ManInput());
+        antonio.setBehavior(new TextInputMovementStrategy());
 
         wumpusWorld.setHunter(antonio);
 

@@ -1,9 +1,13 @@
-package build;
+package impl;
 
-import core.entity.BaseEntity;
+import core.entity.LivingEntity;
 import core.world.World;
 
-public class User extends BaseEntity {
+public class User extends LivingEntity {
+    public User() {
+        super();
+    }
+
     /**
      * Unused on Hunter.
      */
@@ -17,19 +21,24 @@ public class User extends BaseEntity {
     public int getPoints() {
         return points;
     }
+
     public void setPoints(int points) {
         this.points = points;
     }
+
     public void addPoints(int points) {
         this.points += points;
     }
+
     @Override
     public void setupLogic(World WORLD) {
 
     }
+
     @Override
     public String asString() {
         return "\uD83C\uDFF9";
     }
+
 
 }

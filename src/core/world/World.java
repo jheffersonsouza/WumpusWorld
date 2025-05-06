@@ -1,7 +1,8 @@
 package core.world;
 
 import core.entity.BaseEntity;
-import build.Void;
+import core.entity.trait.EmissionEntity;
+import impl.Void;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,5 +81,13 @@ public class World {
 
     public int getSize() {
         return WORLD_SIZE;
+    }
+
+    public void remove(BaseEntity e) {
+        for (ArrayList<BaseEntity>[] row : WORLD) {
+            for (ArrayList<BaseEntity> tile : row) {
+                tile.remove(e);
+            }
+        }
     }
 }

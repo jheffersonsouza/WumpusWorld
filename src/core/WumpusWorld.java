@@ -1,6 +1,6 @@
 package core;
 
-import build.User;
+import impl.User;
 import core.world.World;
 import core.world.WorldGenerator;
 import utils.GraphicMock;
