@@ -69,6 +69,7 @@ public class World {
             place(entity);
             return;
         }
+
         if (!entity.asString().isEmpty()) {
             System.out.println(entity.asString() + " placed at position " + entity.POS.x + ", " + entity.POS.y);
         }

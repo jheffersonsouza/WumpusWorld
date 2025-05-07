@@ -4,7 +4,7 @@ import impl.User;
 
 public class Main {
     public static void main(String[] args) {
-        WumpusWorld wumpusWorld = new WumpusWorld(3);
+        WumpusWorld wumpusWorld = new WumpusWorld(6);
         User antonio = new User();
         antonio.setPoints(10); // Ele é vip já começa com pontos kkkkk
 
