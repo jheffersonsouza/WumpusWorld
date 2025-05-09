@@ -30,7 +30,7 @@ public class World {
         // verificar se ja tem algo nesse local
         // Colocar a entidade nele
         worldgen.getDefaultEntities().forEach(e -> {
-            int[] pos = getRandomPosition(e.isReserved());
+            int[] pos = worldgen.getRandomPosition(WORLD, e.isReserved());
             e.setPos(pos[0], pos[1]);
             place(e);
             // Possivelmente um problema de dependencia circular.
@@ -38,26 +38,6 @@ public class World {
 
         });
 
-    }
-
-
-    private int[] getRandomPosition(boolean reserved) {
-        int row = new Random().nextInt(0, WORLD_SIZE);
-        int column = new Random().nextInt(0, WORLD_SIZE);
-        // O começo já é reservado para o caçador.
-        if (row == 0 && column == 0) {
-            return getRandomPosition(reserved);
-        }
-        // Verifica se no tile já tem uma entidade que nao permite ficar outro la,
-        // tipo o buraco já ta la, nao pode colocar o ouro.
-        boolean alreadyHasUniqueEntity = WORLD[row][column]
-                .stream()
-                .anyMatch(BaseEntity::isReserved);
-        if (alreadyHasUniqueEntity && reserved) {
-            return getRandomPosition(true);
-        }
-
-        return new int[]{row, column};
     }
 
     public void place(BaseEntity entity) {

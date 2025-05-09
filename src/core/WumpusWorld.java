@@ -5,6 +5,8 @@ import core.world.World;
 import core.world.WorldGenerator;
 import utils.GraphicMock;
 
+import java.util.Random;
+
 /**
  * na real  o world é uma lista de baseEntity pq num local so Aij pode ter mais de uma entity
  * tipo ter o brilho do ouro, o buraco e o fedor do monstro
@@ -20,14 +22,16 @@ public class WumpusWorld {
     public World WORLD;
     private User hunter;
 
-    /**
-     * Later on add a seed to randomize according to seed, and make it possible to recreate
-     * a known world.
-     */
-    public WumpusWorld(final int size) {
-        this.WORLD = new World(new WorldGenerator(size));
+
+    public WumpusWorld(int size) {
+        this.WORLD = new World(new WorldGenerator(new Random().nextLong(), size));
 
     }
+
+    public WumpusWorld(long seed, int size) {
+        this.WORLD = new World(new WorldGenerator(seed, size));
+    }
+
 
     public void setHunter(User hunter) {
         hunter.setPos(0, 0);
@@ -35,9 +39,6 @@ public class WumpusWorld {
         this.hunter = hunter;
         WORLD.gridUpdated();
     }
-
-
-
 
 
 }

@@ -7,31 +7,58 @@ import impl.Monster;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class WorldGenerator {
+    public long SEED;
     public int size;
-    private final List<BaseEntity> defaultEntities = new ArrayList<>();
+    private final List<BaseEntity> defaultEntities;
+    private Random seededRandom;
 
-    public WorldGenerator(int size) {
-        //TODO: os comentarios daqui alguams partes sao invalidas ja que isso veio do WumpusWorld.java
-
-        // Sanitizando a size. futuramente vai ser um user input que determina size.
-        // esse classe vai ser iniciada por um handler ou parser ou sei la qual design pattern
-        //mas é feito agnostica de console, vai ser mais pra poder ser implementado tanto em
-        // um console com ascii ou em um aplicação ou site, vai virar mais uma api.
+    public WorldGenerator(long seed, int size) {
+        this.defaultEntities = new ArrayList<>();
+        this.SEED = seed;
+        this.seededRandom = new Random(SEED);
         this.size = size;
+        // Sanitizando a size. futuramente vai ser um user input que determina size.
         if (size < 3 || size > 10) {
             System.out.println("Error: size must be between 3 and 10. Setting to default size (3)");
             this.size = 3;
         }
-        // TODO: Remover esse hardcoded e fazer com que a lista de defualt entities, seja definida
-        // pelo usuário.
-        defaultEntities.add(new Gold());
-        defaultEntities.add(new Monster());
-        defaultEntities.add(new Hole());
+        System.out.println("Seed: " + SEED);
+    }
+
+
+    public int[] getRandomPosition(ArrayList<BaseEntity>[][] WORLD, boolean reserved) {
+        int row = seededRandom.nextInt(0, size);
+        int column = seededRandom.nextInt(0, size);
+        // O começo já é reservado para o caçador.
+        if (row == 0 && column == 0) {
+            return getRandomPosition(WORLD, reserved);
+        }
+        // Verifica se no tile já tem uma entidade que nao permite ficar outro la,
+        // tipo o buraco já ta la, nao pode colocar o ouro.
+        boolean alreadyHasUniqueEntity = WORLD[row][column]
+                .stream()
+                .anyMatch(BaseEntity::isReserved);
+        if (alreadyHasUniqueEntity && reserved) {
+            return getRandomPosition(WORLD, true);
+        }
+
+        return new int[]{row, column};
+    }
+
+    public WorldGenerator addEntity(BaseEntity entity) {
+        defaultEntities.add(entity);
+        return this;
     }
 
     public List<BaseEntity> getDefaultEntities() {
+        if (defaultEntities.isEmpty()) {
+            defaultEntities.add(new Gold());
+            defaultEntities.add(new Monster());
+            defaultEntities.add(new Hole());
+        }
         return defaultEntities;
     }
 
