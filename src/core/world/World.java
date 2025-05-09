@@ -2,13 +2,11 @@ package core.world;
 
 import core.entity.BaseEntity;
 import core.entity.move.Position;
-import core.entity.trait.EmissionEntity;
 import impl.Void;
 import utils.GraphicMock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class World {
     private final int WORLD_SIZE;
