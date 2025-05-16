@@ -4,6 +4,12 @@ public class Position {
     public int x;
     public int y;
 
+
+    public Position(Position pos) {
+        this.x = pos.x;
+        this.y = pos.y;
+    }
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
@@ -15,8 +21,16 @@ public class Position {
     }
 
     public Position setPos(int x, int y) {
+        System.out.println("Set pos called:" + this.x + ", " + this.y);
         this.x = x;
         this.y = y;
+        return this;
+    }
+
+    public Position setPos(Position pos) {
+        System.out.println("Set POS CLASS called:" + this.x + ", " + this.y);
+        this.x = pos.x;
+        this.y = pos.y;
         return this;
     }
 
@@ -25,7 +39,6 @@ public class Position {
     }
 
     public Position down() {
-        // Ir para baixo é passar para a proxima linha, ou seja, somar 1.
         return new Position(x, y + 1);
     }
 
@@ -38,13 +51,12 @@ public class Position {
     }
 
     /**
-     *
-     * @param pos Posição a ser verificada.
+     * @param pos        Posição a ser verificada.
      * @param WORLD_SIZE Essa size é o tamanho do mundo e não a quantia de elementos em cada linha/coluna
      * @return Retorna true se a posição é válida, do contrário false.
      */
     public static boolean isValid(Position pos, int WORLD_SIZE) {
-        if (pos.x < 0 || pos.y < 0){
+        if (pos.x < 0 || pos.y < 0) {
             return false;
         }
         return pos.x <= WORLD_SIZE - 1 && pos.y <= WORLD_SIZE - 1;
@@ -52,7 +64,8 @@ public class Position {
 
     /**
      * Verficia se a posição dada é valida, se ela está dentro do mundo/plano.
-     * @param pos Posição inicial.
+     *
+     * @param pos        Posição inicial.
      * @param WORLD_SIZE O tamanho do mundo.
      * @return A posição se for válida, do contrário null.
      */

@@ -1,21 +1,21 @@
 package impl.movement;
 
-import core.entity.BaseEntity;
+import core.entity.LivingEntity;
 import core.entity.move.MovementStrategy;
-import core.entity.move.Position;
 import core.world.World;
 
 import java.util.Scanner;
 
 public class TextInputMovementStrategy implements MovementStrategy {
-    private Scanner input;
+    private final Scanner input;
 
     public TextInputMovementStrategy() {
         this.input = new Scanner(System.in);
     }
 
     @Override
-    public boolean determineNextAction(BaseEntity entity, World world) {
+    public boolean determineNextAction(LivingEntity entity, World world) {
+        if (!entity.isAlive()) return false;
         System.out.print("Mova-se (W/A/S/D/sair): ");
         String choosed = this.input.nextLine();
         switch (choosed.toUpperCase()) {
@@ -39,4 +39,5 @@ public class TextInputMovementStrategy implements MovementStrategy {
         }
         return true;
     }
+
 }

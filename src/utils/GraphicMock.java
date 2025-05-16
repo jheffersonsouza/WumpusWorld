@@ -2,11 +2,9 @@ package utils;
 
 import core.entity.BaseEntity;
 import core.world.World;
+import impl.User;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class GraphicMock {
 
@@ -20,7 +18,7 @@ public class GraphicMock {
                 StringBuilder tS = new StringBuilder();
                 tile.forEach(e -> {
                     tS.append(e.asString());
-                           // .append("/");
+                    // .append("/");
                 });
                 //tS.deleteCharAt(tS.length() - 1);
                 asciiParsed[i][j] = tS.toString();
@@ -51,6 +49,7 @@ public class GraphicMock {
          System.out.println(" ");
          **/
     }
+
     // Gerado pelo Claude 3.7 Sonnet - Usado so pra poupar tempo no ascii.
     // Nao li o que o codigo faz só funciona e to usando, mas pretendo fazer um a mão depois
     // ou expor isso como api webscocket e fazer um front, sei la, fazer ascii n é comigo.
@@ -118,4 +117,22 @@ public class GraphicMock {
         System.out.println(linhaInfer);
     }
 
+    public static void end(User hunter) {
+        System.out.println("-".repeat(50));
+        if (!hunter.isAlive()) {
+            System.out.println("Você perdeu!");
+            String dr = "Unknown";
+            switch (hunter.getDeathReason()) {
+                case FALL -> dr = "Caiu no buraco";
+                case EATEN -> dr = "Comido pelo Wumpus";
+            }
+            System.out.println("Causa da morte: " + dr);
+        } else if (hunter.hasWin()) {
+            System.out.println("Você ganhou!");
+        } else{
+            System.out.println("Voce fez oq ???????");
+        }
+        System.out.println("Pontos finais: " + hunter.getPoints());
+        System.out.println("-".repeat(50));
+    }
 }

@@ -25,4 +25,12 @@ public class EmissionEntity extends BaseEntity {
         return false;
     }
 
+    /**
+     * @param entry Entidade que está colidindo.
+     */
+    @Override
+    public void colision(BaseEntity entry) {
+        // Unused
+    }
+
 }

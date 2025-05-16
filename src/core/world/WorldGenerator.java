@@ -4,6 +4,7 @@ import core.entity.BaseEntity;
 import impl.Gold;
 import impl.Hole;
 import impl.Monster;
+import impl.movement.DefaultMovementStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class WorldGenerator {
     public long SEED;
     public int size;
     private final List<BaseEntity> defaultEntities;
-    private Random seededRandom;
+    private final Random seededRandom;
 
     public WorldGenerator(long seed, int size) {
         this.defaultEntities = new ArrayList<>();
@@ -56,7 +57,7 @@ public class WorldGenerator {
     public List<BaseEntity> getDefaultEntities() {
         if (defaultEntities.isEmpty()) {
             defaultEntities.add(new Gold());
-            defaultEntities.add(new Monster());
+            defaultEntities.add(new Monster().setBehavior(new DefaultMovementStrategy()));
             defaultEntities.add(new Hole());
         }
         return defaultEntities;

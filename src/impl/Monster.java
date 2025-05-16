@@ -1,13 +1,16 @@
 package impl;
 
-import core.entity.trait.EmissionTrait;
+import core.entity.BaseEntity;
+import core.entity.DeathReason;
 import core.entity.LivingEntity;
+import core.entity.trait.EmissionTrait;
 import core.world.World;
 
 public class Monster extends LivingEntity {
     public Monster() {
         super();
     }
+
     @Override
     public boolean isReserved() {
         return false;
@@ -24,5 +27,14 @@ public class Monster extends LivingEntity {
         return "\uD83D\uDC79";
     }
 
+    /**
+     * @param entry Entidade que está colidindo.
+     */
+    @Override
+    public void colision(BaseEntity entry) {
+        if (entry instanceof User hunter) {
+            hunter.kill(DeathReason.EATEN);
+        }
+    }
 
 }

@@ -37,6 +37,9 @@ public class WumpusWorld {
         WORLD.place(hunter);
         this.hunter = hunter;
         WORLD.gridUpdated();
+        // TODO: Talvez um game tick tipo minecraft? por enquanto ta em varios whiles o movimento.
+        //WORLD.startGameTick()
+        WORLD.startIA();
     }
 
 

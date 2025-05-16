@@ -1,7 +1,10 @@
 package core.world;
 
 import core.entity.BaseEntity;
+import core.entity.LivingEntity;
 import core.entity.move.Position;
+import core.entity.trait.EmissionEntity;
+import impl.User;
 import impl.Void;
 import utils.GraphicMock;
 
@@ -22,18 +25,12 @@ public class World {
                 place(new Void().setPos(i, j));
             }
         }
-
-        // Gerar um local aleatorio entre 0 a 2, (0,1,2)
-        // verificar se nao é o [0][0] (loal do caçador já)
-        // verificar se ja tem algo nesse local
-        // Colocar a entidade nele
         worldgen.getDefaultEntities().forEach(e -> {
             int[] pos = worldgen.getRandomPosition(WORLD, e.isReserved());
             e.setPos(pos[0], pos[1]);
             place(e);
             // Possivelmente um problema de dependencia circular.
             e.setupLogic(this);
-
         });
 
     }
@@ -48,17 +45,24 @@ public class World {
             return;
         }
 
-        if (!entity.asString().isEmpty()) {
-            System.out.println(entity.asString() + " placed at position " + entity.POS.x + ", " + entity.POS.y);
-        }
+        /*
+         // DEBUG
+         if (!entity.asString().isEmpty()) {
+         System.out.println(entity.asString() + " placed at position " + entity.POS.x + ", " + entity.POS.y);
+         }
+         */
         if (tile.size() == 1 && tile.getFirst() instanceof Void) {
             tile.clear();
             tile.add(entity);
             return;
         }
-        // aqui significa que tem ou 0 ou mais de 1 coisa no quadrado já.
-        // nao vai verificar se pode ta no tile aqui nao.
+        tile.stream()
+                .filter(t -> !(t instanceof Void) && !(t instanceof EmissionEntity))
+                .forEach(t -> {
+                    t.colision(entity);
+                });
         tile.add(entity);
+
     }
 
     public void remove(BaseEntity e) {
@@ -75,6 +79,18 @@ public class World {
             remove(entity);
             place(entity.setPos(newPos));
             gridUpdated();
+            if (entity instanceof User hunter) {
+                hunter.addPoints(-1);
+                System.out.println("Pontos: " + hunter.getPoints());
+            }
+            // Verificação da condição de vitória.
+            if (entity instanceof User hunter) {
+                if (hunter.obj && hunter.POS.y == 0 && hunter.POS.x == 0) {
+                    // O cara cumpriu o objetivo e foi colocado no (0,0). Ganhou.
+                    hunter.win();
+                    // O metodo win vai ser abstrato no futuro.
+                }
+            }
         }
         // TODO: Later, listen to the else, to know when IA is moving wrong.
     }
@@ -85,5 +101,21 @@ public class World {
 
     public void gridUpdated() {
         GraphicMock.print(this);
+    }
+
+    public void startIA() {
+        System.out.println("Starting IA?");
+        // Talvez cria uma lista de living entities depois, pra nao ficar iterando todo tempo
+        // Ativa a movimentação dos cabra que tem movimentação
+        for (int i = 0; i < WORLD_SIZE; i++) {
+            for (int j = 0; j < WORLD_SIZE; j++) {
+                WORLD[i][j].stream()
+                        .filter(t -> t instanceof LivingEntity)
+                        .forEach(e -> {
+                            ((LivingEntity) e).shouldMove(true);
+                            ((LivingEntity) e).callbackBehavior(this);
+                        });
+            }
+        }
     }
 }

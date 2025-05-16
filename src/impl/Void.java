@@ -19,4 +19,10 @@ public class Void extends BaseEntity {
     public boolean isReserved() {
         return false;
     }
+
+   //Unused
+    @Override
+    public void colision(BaseEntity entry) {
+
+    }
 }

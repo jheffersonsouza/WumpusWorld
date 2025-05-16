@@ -21,4 +21,10 @@ public abstract class BaseEntity {
 
     public abstract boolean isReserved();
 
+    /**
+     * @param entry Entidade que está colidindo.
+     */
+    // Checar colisões de maneira hardcoded
+    public abstract void colision(BaseEntity entry);
+
 }
