@@ -15,6 +15,11 @@ TODO:<br>
 3. Criar a possibilidade do caçador atirar x flecha(s)
 4. Ler os outros TODO dentro do código que deve ter mais coisa para ser feita.
 5. "mecanismo de colisão", ver quando caiu no buraco, pegou ouro, foi pego pelo monstro.
+6. se eu fizer um mov invalido no manual input eu nao cancelo o movimento do wumpus e acabo morrendo kkkkkkkkkk (Feature ou bug?)
+7. eu to fazendo u hardoced no trait persistente, no caos eu precis ofazer uqe living entity(entidades que se movem/vivas) tenham uma opção
+ou booleano ou que seja de ter um Traço persistente, no caso todo game tick do onMove vai chamar o EmissionTrait e dar um update()
+que é basicamente remover as entitades atuais (acho que eu tenho armazenado a referencia de cada uma) e adicionar dnv nos novos cantos.
+
 Muito provavelmente quando uma entidade se mover o check no novo tile dela acontece, reaproveitando uma iteração
 sobre a lista de entidades que já ta la
 

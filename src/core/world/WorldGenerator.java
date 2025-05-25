@@ -1,9 +1,9 @@
 package core.world;
 
 import core.entity.BaseEntity;
-import impl.Gold;
-import impl.Hole;
-import impl.Monster;
+import impl.entities.Gold;
+import impl.entities.Hole;
+import impl.entities.Monster;
 import impl.movement.DefaultMovementStrategy;
 
 import java.util.ArrayList;

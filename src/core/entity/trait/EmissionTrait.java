@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class EmissionTrait {
     private final World world;
-    private final Position position;
+    private Position position;
     private final String displayName;
 
     private final ArrayList<BaseEntity> entities;
@@ -23,6 +23,7 @@ public class EmissionTrait {
     }
 
     private void spawn() {
+        // acho que chamar so uma vez world.remove() ja resolveria, ja que ele itera sobre todos os tile lá e remove a entidade por tipo, nao por objeto.
         entities.forEach(world::remove);
         entities.clear();
         addIfValid(new Position(position.up()));
@@ -34,8 +35,13 @@ public class EmissionTrait {
 
     private void addIfValid(Position pos) {
         pos = Position.getSafePos(pos, world.getSize());
-        if (pos != null){
+        if (pos != null) {
             entities.add(new EmissionEntity(displayName).setPos(pos));
         }
+    }
+
+    public void update(Position newPos) {
+        this.position = newPos;
+        spawn();
     }
 }

@@ -14,8 +14,13 @@ public class TextInputMovementStrategy implements MovementStrategy {
     }
 
     @Override
-    public boolean determineNextAction(LivingEntity entity, World world) {
-        if (!entity.isAlive()) return false;
+    public boolean isInputBased() {
+        return true;
+    }
+
+    @Override
+    public void move(LivingEntity entity, World world) {
+        if (!entity.isAlive()) return;
         System.out.print("Mova-se (W/A/S/D/sair): ");
         String choosed = this.input.nextLine();
         switch (choosed.toUpperCase()) {
@@ -32,12 +37,11 @@ public class TextInputMovementStrategy implements MovementStrategy {
                 world.move(entity, entity.POS.right());
                 break;
             case "SAIR":
-                return false;
+                return;
             default:
                 System.out.println("Opção inválida.");
 
         }
-        return true;
     }
 
 }

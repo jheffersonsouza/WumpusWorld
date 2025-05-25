@@ -1,4 +1,4 @@
-package impl;
+package impl.entities;
 
 import core.entity.BaseEntity;
 import core.world.World;

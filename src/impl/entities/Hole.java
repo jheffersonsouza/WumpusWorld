@@ -1,30 +1,26 @@
-package impl;
+package impl.entities;
 
 import core.entity.BaseEntity;
 import core.entity.DeathReason;
-import core.entity.LivingEntity;
 import core.entity.trait.EmissionTrait;
 import core.world.World;
 
-public class Monster extends LivingEntity {
-    public Monster() {
-        super();
-    }
-
+public class Hole extends BaseEntity {
     @Override
     public boolean isReserved() {
-        return false;
+        return true;
     }
+
 
     @Override
     public void setupLogic(World world) {
-        // c é Catinga
-        new EmissionTrait(world, POS, "c");
+        // b é Brisa
+        new EmissionTrait(world, POS, "b");
     }
 
     @Override
     public String asString() {
-        return "\uD83D\uDC79";
+        return "\uD83D\uDD73"; // Buraco
     }
 
     /**
@@ -32,9 +28,11 @@ public class Monster extends LivingEntity {
      */
     @Override
     public void colision(BaseEntity entry) {
+        // Caçador -> Buraco
         if (entry instanceof User hunter) {
-            hunter.kill(DeathReason.EATEN);
+            hunter.kill(DeathReason.FALL);
         }
     }
+
 
 }

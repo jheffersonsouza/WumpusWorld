@@ -23,10 +23,8 @@ public abstract class LivingEntity extends BaseEntity {
         return this;
     }
 
-    public void callbackBehavior(World world) {
-        while (shouldMove()) {
-            movementStrategy.determineNextAction(this, world);
-        }
+    public void nextMove(World world) {
+        if (shouldMove()) movementStrategy.move(this, world);
     }
 
     public void kill(DeathReason reason) {
@@ -51,6 +49,10 @@ public abstract class LivingEntity extends BaseEntity {
 
     public DeathReason getDeathReason() {
         return deathReason;
+    }
+
+    public MovementStrategy getMovementStrategy() {
+        return movementStrategy;
     }
 
 }

@@ -5,6 +5,7 @@ import core.world.World;
 
 public interface MovementStrategy {
 
-    boolean determineNextAction(LivingEntity e, World world);
+    boolean isInputBased();
+    void move(LivingEntity e, World world);
 
 }

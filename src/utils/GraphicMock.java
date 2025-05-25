@@ -2,7 +2,7 @@ package utils;
 
 import core.entity.BaseEntity;
 import core.world.World;
-import impl.User;
+import impl.entities.User;
 
 import java.util.ArrayList;
 

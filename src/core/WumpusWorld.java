@@ -2,7 +2,7 @@ package core;
 
 import core.world.World;
 import core.world.WorldGenerator;
-import impl.User;
+import impl.entities.User;
 
 import java.util.Random;
 
@@ -36,10 +36,9 @@ public class WumpusWorld {
         hunter.setPos(0, 0);
         WORLD.place(hunter);
         this.hunter = hunter;
+        // Posição inicial.
         WORLD.gridUpdated();
-        // TODO: Talvez um game tick tipo minecraft? por enquanto ta em varios whiles o movimento.
-        //WORLD.startGameTick()
-        WORLD.startIA();
+        WORLD.startGameTick(hunter);
     }
 
 

@@ -4,8 +4,9 @@ import core.entity.LivingEntity;
 import core.entity.move.MovementStrategy;
 import core.entity.move.Position;
 import core.world.World;
-import impl.User;
+import impl.entities.User;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -15,23 +16,31 @@ public class DefaultMovementStrategy implements MovementStrategy {
     }
 
     @Override
-    public boolean determineNextAction(LivingEntity e, World world) {
+    public boolean isInputBased(){
+        return false;
+    }
+    @Override
+    public void move(LivingEntity e, World world) {
         // Testar se isso funciona, mas basicamente é uma gambiarra para pegar a Pos do Hunter sempre.
         // Que pra ser menos hardcoded eu tenho que determinar target.
         // TODO: Determinar melhor o target e pos.
+        AtomicBoolean isObjAlive = new AtomicBoolean(true);
         AtomicReference<Position> pos = new AtomicReference<>();
         for (int i = 0; i < world.getSize(); i++) {
             for (int j = 0; j < world.getSize(); j++) {
                 world.WORLD[i][j]
                         .stream().filter(t -> t instanceof User)
                         .forEach(h -> {
+                            isObjAlive.set(((User) h).isAlive());
                             pos.set(new Position(h.POS));
                         });
                 if (pos.get() != null) break;
             }
             if (pos.get() != null) break;
         }
-        System.out.print("Debugging hunter finder ia, Pos: " + pos.get().x + ", " + pos.get().y);
+        if (!isObjAlive.get()) {
+            return;
+        }
         // Se pa pode ser optimizado, mas deve funcionar desse jeito.
         // É uma "IA" meio burrinha.
         int diffY = pos.get().y - e.POS.y;
@@ -52,6 +61,5 @@ public class DefaultMovementStrategy implements MovementStrategy {
                 world.move(e, e.POS.left());
             }
         }
-        return true;
     }
 }
