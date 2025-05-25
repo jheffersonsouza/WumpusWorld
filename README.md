@@ -1,9 +1,13 @@
-Gastei 02h e 58 - 05/05
-Gastei mais umas 3 horas - 06/05
-Gastei mais 1 hora - 09/05
+**This project is currently in pt-BR and probably won’t be translated..**
+<br>
+<br>
+<br>
+Gastei 02h e 58 - 05/05<br>
+Gastei mais umas 3 horas - 06/05<br>
+Gastei mais 1 hora - 09/05<br>
 
 TODO:<br>
-~~1. Ajeitar a nomenclatura de Traits~~
+~~1. Ajeitar a nomenclatura de Traits~~<br>
 ~~4. Criar o mecanismo de seeds para o WorldGenerator~~
 
 1. Criar a movimentação do Monstro.
