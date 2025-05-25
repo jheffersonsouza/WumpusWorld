@@ -6,15 +6,12 @@ import core.entity.move.Position;
 import core.world.World;
 import impl.User;
 
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 
 public class DefaultMovementStrategy implements MovementStrategy {
-    private final Scanner input;
-
     public DefaultMovementStrategy() {
-        this.input = new Scanner(System.in);
+
     }
 
     @Override
@@ -28,13 +25,13 @@ public class DefaultMovementStrategy implements MovementStrategy {
                 world.WORLD[i][j]
                         .stream().filter(t -> t instanceof User)
                         .forEach(h -> {
-                            pos.set(new Position().setPos(h.POS));
+                            pos.set(new Position(h.POS));
                         });
                 if (pos.get() != null) break;
             }
             if (pos.get() != null) break;
         }
-
+        System.out.print("Debugging hunter finder ia, Pos: " + pos.get().x + ", " + pos.get().y);
         // Se pa pode ser optimizado, mas deve funcionar desse jeito.
         // É uma "IA" meio burrinha.
         int diffY = pos.get().y - e.POS.y;

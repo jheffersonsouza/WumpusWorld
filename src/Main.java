@@ -6,7 +6,7 @@ import utils.GraphicMock;
 public class Main {
     public static void main(String[] args) {
         long seed = Long.parseLong("8215846772878890866"); // apagar dps
-        WumpusWorld wumpusWorld = new WumpusWorld( 6);
+        WumpusWorld wumpusWorld = new WumpusWorld(seed, 6);
         User antonio = new User();
         //antonio.setPoints(10);  Se ele for vip já começa com pontos kkkkk
 
@@ -20,6 +20,5 @@ public class Main {
         GraphicMock.end(antonio);
 
 
-        // FIXME: O sistema de posição dos trait ta bugado por algum motivo.
     }
 }

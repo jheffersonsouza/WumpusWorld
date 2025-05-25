@@ -21,3 +21,9 @@ Os tipos de fim: Perda (obj pode ser false ou true, isAlive é false), Vitória(
 winned tem que ser true, isAlive tem que ser true)
 Cancelamento de movimento, talvez criar como eventos baseado no Bukkit, atualmente eu cancelo checando
 no loop(while) por shouldMove() que é setado se morto ou se ganhou(obj && winned).
+
+
+Mock de matriz que compara posição 
+Criar um game tick que espera movimentação, mas ai eu vou ter
+que decidir a prioridade de movimentação que nao vai ser
+paralela

@@ -10,6 +10,9 @@ import utils.GraphicMock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class World {
     private final int WORLD_SIZE;
@@ -104,7 +107,7 @@ public class World {
     }
 
     public void startIA() {
-        System.out.println("Starting IA?");
+        System.out.println("Starting IA");
         // Talvez cria uma lista de living entities depois, pra nao ficar iterando todo tempo
         // Ativa a movimentação dos cabra que tem movimentação
         for (int i = 0; i < WORLD_SIZE; i++) {
@@ -113,7 +116,12 @@ public class World {
                         .filter(t -> t instanceof LivingEntity)
                         .forEach(e -> {
                             ((LivingEntity) e).shouldMove(true);
-                            ((LivingEntity) e).callbackBehavior(this);
+                            try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
+                                scheduler.scheduleAtFixedRate(() -> {
+                                    ((LivingEntity) e).callbackBehavior(this);
+                                }, 0, 3, TimeUnit.SECONDS);
+                                System.out.println("Rodou a thread");
+                            }
                         });
             }
         }
